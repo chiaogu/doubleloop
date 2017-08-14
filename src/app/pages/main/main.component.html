@@ -1,1 +1,1 @@
-<app-board [row]="confing.row" [column]="confing.column"></app-board>
+<app-board [row]="(config$|async)?.row" [column]="(config$|async)?.column" [bricks]="bricks$|async"></app-board>

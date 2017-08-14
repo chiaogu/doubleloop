@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-brick',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./brick.component.scss']
 })
 export class BrickComponent implements OnInit {
-
+  @Input() brick;
+  
   constructor() { }
 
   ngOnInit() {

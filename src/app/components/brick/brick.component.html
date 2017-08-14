@@ -1,1 +1,4 @@
-<div class="root"></div>
+<div class="root undefined" *ngIf="brick===undefined">
+</div>
+<div class="root" [style.background-color]="brick.color" *ngIf="brick!==undefined">
+</div>
