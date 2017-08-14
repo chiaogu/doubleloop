@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+  confing = {
+    row: 4,
+    column: 4
+  };
 
   constructor() { }
 

@@ -1,1 +1,5 @@
-<app-brick *ngFor="let i of [0, 1, 2, 3]"></app-brick>
+<div class="root">
+  <div class="row" *ngFor="let i of Array(row).fill(0)">
+    <app-brick class="brick" *ngFor="let i of Array(column).fill(0)"></app-brick>
+  </div>
+</div>

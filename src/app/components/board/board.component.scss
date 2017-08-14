@@ -1,0 +1,14 @@
+.root {
+    display: flex;
+    flex-direction: column;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.brick {
+    margin: 24px 0 0 24px;
+    width: 100px;
+    height: 100px;
+}
