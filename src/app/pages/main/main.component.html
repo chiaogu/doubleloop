@@ -1,1 +1,3 @@
 <app-board [row]="(config$|async)?.row" [column]="(config$|async)?.column" [bricks]="bricks$|async" (brickPress)="onBrickPress($event)"></app-board>
+
+<button (click)="toggleRecord()" [style.color]="recorder.recording ? 'red':'black'">Record</button>
