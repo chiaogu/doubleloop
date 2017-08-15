@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { AudioContextModule } from 'angular-audio-context';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from "./pages/main/main.component";
@@ -13,6 +14,7 @@ import { ConfigService } from './services/config.service';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/forkJoin'
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
@@ -32,6 +34,7 @@ export const routes: Routes = [
   imports: [
     HttpModule,
     BrowserModule,
+    AudioContextModule,
     RouterModule.forRoot(routes)
   ],
   declarations: [
