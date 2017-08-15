@@ -22,6 +22,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
+import 'hammerjs';
 
 export const routes: Routes = [
   {

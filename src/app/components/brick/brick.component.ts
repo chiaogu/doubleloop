@@ -1,11 +1,11 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { AudioContext } from 'angular-audio-context';
 import { Observable } from "rxjs/Observable";
 import { Http, ResponseContentType } from "@angular/http";
 import { IAudioBufferSourceNode } from "standardized-audio-context/build/esm/interfaces";
 import { Brick } from "../../services/brick.service";
 
-export interface BrickClickEvent {
+export interface BrickPressEvent {
   brick: Brick,
   time: Date
 }
@@ -17,7 +17,7 @@ export interface BrickClickEvent {
 })
 export class BrickComponent implements OnInit, OnChanges {
   @Input() brick;
-  @Input() press = new EventEmitter();
+  @Output() brickPress: EventEmitter<BrickPressEvent> = new EventEmitter();
 
   buffer: AudioBuffer;
   bufferSource: IAudioBufferSourceNode;
@@ -62,6 +62,11 @@ export class BrickComponent implements OnInit, OnChanges {
     this.bufferSource.buffer = this.buffer;
     this.bufferSource.connect(this.audio.destination);
     this.bufferSource.start(0);
+
+    this.brickPress.next({
+      brick: this.brick,
+      time: new Date()
+    });
   }
 
 }

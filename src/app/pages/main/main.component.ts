@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfigService, Config } from "../../services/config.service";
 import { BrickService } from "../../services/brick.service";
 import { Observable } from "rxjs/Observable";
+import { BrickPressEvent } from "../../components/brick/brick.component";
 
 @Component({
   selector: 'app-main',
@@ -43,4 +44,7 @@ export class MainComponent implements OnInit {
       });
   }
 
+  onBrickPress(event: BrickPressEvent) {
+    console.log(event);
+  }
 }

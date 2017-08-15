@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { BrickPressEvent } from "../brick/brick.component";
 
 @Component({
   selector: 'app-board',
@@ -10,6 +11,8 @@ export class BoardComponent implements OnInit {
   @Input() row: number = 0;
   @Input() column: number = 0;
   @Input() bricks: any = {};
+
+  @Output() brickPress: EventEmitter<BrickPressEvent> = new EventEmitter();
 
   constructor() { }
 
@@ -23,4 +26,7 @@ export class BoardComponent implements OnInit {
     return this.bricks[`${x},${y}`];
   }
 
+  onBrickPress(event: BrickPressEvent) {
+    this.brickPress.next(event);
+  }
 }
