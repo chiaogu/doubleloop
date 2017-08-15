@@ -20,7 +20,7 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.config$ = Observable.from(this.config.get()).shareReplay();
+    this.config$ = this.config.get().shareReplay();
 
     this.bricks$ = this.config$
       .switchMap(config => {
@@ -29,13 +29,13 @@ export class MainComponent implements OnInit {
           return arr;
         }, []);
 
-        return Observable.from(Promise.all([
-          Promise.resolve(config),
+        return Observable.forkJoin(
+          Observable.of(config),
           this.brick.get(ids)
-        ]));
+        );
       })
       .map(([config, bricks]) => {
-        for(let coord of Object.keys(config.bricks)){
+        for (let coord of Object.keys(config.bricks)) {
           let id = config.bricks[coord];
           config.bricks[coord] = bricks[id];
         }

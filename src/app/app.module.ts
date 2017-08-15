@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from "./pages/main/main.component";
@@ -12,6 +13,8 @@ import { ConfigService } from './services/config.service';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/forkJoin'
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
@@ -26,15 +29,16 @@ export const routes: Routes = [
 ];
 
 @NgModule({
+  imports: [
+    HttpModule,
+    BrowserModule,
+    RouterModule.forRoot(routes)
+  ],
   declarations: [
     AppComponent,
     BrickComponent,
     MainComponent,
     BoardComponent
-  ],
-  imports: [
-    BrowserModule,
-    RouterModule.forRoot(routes)
   ],
   providers: [
     BrickService,

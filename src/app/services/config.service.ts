@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Http } from "@angular/http";
+import { Observable } from "rxjs/Observable";
 
 export interface Config {
   row: number;
@@ -9,16 +11,12 @@ export interface Config {
 @Injectable()
 export class ConfigService {
 
-  constructor() { }
+  constructor(
+    private http: Http
+  ) { }
 
-  get(): Promise<Config> {
-    return Promise.resolve({
-      row: 4,
-      column: 4,
-      bricks: {
-        '0,0': '0001'
-      }
-    });
+  get(): Observable<Config> {
+    return this.http.get('assets/config.json').map(res => res.json());
   }
 
 }
