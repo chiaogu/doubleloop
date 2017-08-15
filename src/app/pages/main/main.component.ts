@@ -6,25 +6,36 @@ import { BrickPressEvent } from "../../components/brick/brick.component";
 import { Subject } from "rxjs/Subject";
 
 class Recorder {
-    recording: boolean = false;
-    events: BrickPressEvent[] = [];
+  recording: boolean = false;
+  events: any[] = [];
 
-    finish: (events) => void;
+  finish: (events: any[]) => void;
 
-    toggle() {
-      this.recording = !this.recording;
-      if(!this.recording) {
-        if(this.finish !== undefined){
-          this.finish(this.events.splice(0));
-        }
+  toggle() {
+    this.recording = !this.recording;
+    if (!this.recording) {
+      this.events.push({
+        time: new Date(),
+        note: 'END'
+      });
+      let track = this.events.splice(0);
+
+      if (this.finish !== undefined) {
+        this.finish(track);
       }
+    } else {
+      this.events.push({
+        time: new Date(),
+        note: 'START'
+      });
     }
+  }
 
-    input(event) {
-      if(this.recording) {
-        this.events.push(event);
-      }
+  input(event) {
+    if (this.recording) {
+      this.events.push(event);
     }
+  }
 }
 
 @Component({
@@ -40,7 +51,7 @@ export class MainComponent implements OnInit {
 
   recorder: Recorder = new Recorder();
 
-  track: BrickPressEvent[] = [];
+  track: any[] = [];
 
   constructor(
     private config: ConfigService,
@@ -77,10 +88,41 @@ export class MainComponent implements OnInit {
   }
 
   onBrickPress(event: BrickPressEvent) {
-    this.recorder.input(event);
+    this.recorder.input({
+      time: event.time,
+      note: event.brick.id
+    });
   }
 
-  toggleRecord(){
+  toggleRecord() {
     this.recorder.toggle();
+  }
+
+  play() {
+    console.log('---start---');
+
+    let stream = Observable.of(0);
+    let buf = [];
+
+    for (let i = 1; i < this.track.length; i++) {
+      let duration = this.track[i].time.getTime() - this.track[i - 1].time.getTime();
+      console.log('duration', duration);
+      stream = stream
+        .delay(duration)
+        .do(_ => {
+          let time = new Date();
+          console.log(this.track[i].note, time.getTime());
+          buf.push({
+            note: this.track[i].note,
+            time
+          });
+        });
+    }
+
+    stream.subscribe(e => {
+      for (let i = 1; i < buf.length; i++) {
+        console.log(buf[i].time.getTime() - buf[i - 1].time.getTime());
+      }
+    });
   }
 }
