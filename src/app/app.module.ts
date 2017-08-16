@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { AudioContextModule } from 'angular-audio-context';
 import { DndModule } from 'ng2-dnd';
+import { AngularFireModule } from 'angularfire2';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from "./pages/main/main.component";
@@ -28,6 +29,9 @@ import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { SectionComponent } from './components/section/section.component';
+import { environment } from "../environments/environment";
+import { DatabaseService } from "./services/database.service";
+import { AngularFireDatabaseModule } from "angularfire2/database";
 
 export const routes: Routes = [
   {
@@ -42,7 +46,9 @@ export const routes: Routes = [
     BrowserModule,
     AudioContextModule,
     DndModule.forRoot(),
-    RouterModule.forRoot(routes)
+    AngularFireDatabaseModule,
+    RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   declarations: [
     AppComponent,
@@ -54,7 +60,8 @@ export const routes: Routes = [
   ],
   providers: [
     BrickService,
-    ConfigService
+    ConfigService,
+    DatabaseService
   ],
   bootstrap: [AppComponent]
 })

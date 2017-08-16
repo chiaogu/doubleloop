@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { BrickService } from "../../services/brick.service";
 import { AudioContext } from 'angular-audio-context';
 import { Subject } from "rxjs/Subject";
+import { DatabaseService } from "../../services/database.service";
 
 class Recorder {
   recording: boolean = false;
@@ -57,7 +58,8 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   constructor(
     private brickSetvice: BrickService,
-    private audio: AudioContext
+    private audio: AudioContext,
+    private db: DatabaseService
   ) { }
 
   ngOnInit() {
@@ -100,6 +102,18 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   play() {
     this.play$.next();
+  }
+
+  save() {
+    let sections = [];
+    for(let section of this.sections){
+      let notes = [];
+      for(let { time, id } of section){
+        notes.push({ time, id });
+      }
+      sections.push(notes);
+    }
+    this.db.saveSheet(sections);
   }
 
   input(event) {

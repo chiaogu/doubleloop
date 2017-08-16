@@ -4,6 +4,8 @@ import { BrickService } from "../../services/brick.service";
 import { Observable } from "rxjs/Observable";
 import { BrickPressEvent } from "../../components/brick/brick.component";
 import { TimelineComponent } from "../../components/timeline/timeline.component";
+import { FirebaseListObservable } from "angularfire2/database";
+import { DatabaseService } from "../../services/database.service";
 
 @Component({
   selector: 'app-main',
@@ -17,9 +19,12 @@ export class MainComponent implements OnInit {
 
   bricks$: Observable<any>;
 
+  items$: FirebaseListObservable<any[]>;
+
   constructor(
     private config: ConfigService,
-    private brick: BrickService
+    private brick: BrickService,
+    private db: DatabaseService
   ) { }
 
   ngOnInit() {
@@ -45,6 +50,11 @@ export class MainComponent implements OnInit {
         return config.bricks;
       });
 
+    this.items$ = this.db.listSheet();
+
+    this.items$.subscribe(items => {
+      console.log('items', items);
+    });
   }
 
   onBrickPress(event: BrickPressEvent) {
