@@ -1,0 +1,6 @@
+<button (click)="toggleRecord()" [style.color]="recorder.recording ? 'red':'black'">Record</button>
+<button (click)="play()">Play</button>
+
+<div *ngFor="let section of sections">
+  <span style="margin: 8px" *ngFor="let note of section">{{note.id}}</span>
+</div>

@@ -24,6 +24,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 export const routes: Routes = [
   {
@@ -43,7 +44,8 @@ export const routes: Routes = [
     AppComponent,
     BrickComponent,
     MainComponent,
-    BoardComponent
+    BoardComponent,
+    TimelineComponent
   ],
   providers: [
     BrickService,

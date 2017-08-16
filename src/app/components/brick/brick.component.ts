@@ -44,7 +44,7 @@ export class BrickComponent implements OnInit, OnChanges {
         .filter(buffer => buffer !== undefined)
         .subscribe(buffer => {
           this.buffer = buffer;
-        })
+        });
     }
   }
 
