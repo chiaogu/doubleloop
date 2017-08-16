@@ -3,7 +3,7 @@ import { AudioContext } from 'angular-audio-context';
 import { Observable } from "rxjs/Observable";
 import { Http, ResponseContentType } from "@angular/http";
 import { IAudioBufferSourceNode } from "standardized-audio-context/build/esm/interfaces";
-import { Brick } from "../../services/brick.service";
+import { BrickService, Brick } from "../../services/brick.service";
 
 export interface BrickPressEvent {
   brick: Brick,
@@ -16,7 +16,7 @@ export interface BrickPressEvent {
   styleUrls: ['./brick.component.scss']
 })
 export class BrickComponent implements OnInit, OnChanges {
-  @Input() brick;
+  @Input() brick: any;
   @Output() brickPress: EventEmitter<BrickPressEvent> = new EventEmitter();
 
   buffer: AudioBuffer;
@@ -24,7 +24,7 @@ export class BrickComponent implements OnInit, OnChanges {
 
   constructor(
     private audio: AudioContext,
-    private http: Http
+    private brickService: BrickService
   ) { }
 
   ngOnInit() {
@@ -34,14 +34,7 @@ export class BrickComponent implements OnInit, OnChanges {
     if (changes.brick !== undefined) {
       Observable.of(this.brick)
         .filter(brick => brick !== undefined)
-        .switchMap(brick => this.http.get(brick.url, { 
-          responseType: ResponseContentType.ArrayBuffer 
-        }))
-        .switchMap(res => new Promise<any>((resolve, reject) => {
-          this.audio.decodeAudioData(res.arrayBuffer(), resolve, reject);
-        }))
-        .catch(e => Observable.empty())
-        .filter(buffer => buffer !== undefined)
+        .switchMap(brick => this.brickService.getBuffer(brick.id))
         .subscribe(buffer => {
           this.buffer = buffer;
         });
