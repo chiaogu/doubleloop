@@ -1,0 +1,14 @@
+.root{
+    background-color: grey;
+    border: 1px solid black;
+    height: 100%;
+    position: relative;
+}
+
+.note {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}

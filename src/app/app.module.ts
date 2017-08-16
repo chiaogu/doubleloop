@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { AudioContextModule } from 'angular-audio-context';
+import { DndModule } from 'ng2-dnd';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from "./pages/main/main.component";
@@ -26,6 +27,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { SectionComponent } from './components/section/section.component';
 
 export const routes: Routes = [
   {
@@ -39,6 +41,7 @@ export const routes: Routes = [
     HttpModule,
     BrowserModule,
     AudioContextModule,
+    DndModule.forRoot(),
     RouterModule.forRoot(routes)
   ],
   declarations: [
@@ -46,7 +49,8 @@ export const routes: Routes = [
     BrickComponent,
     MainComponent,
     BoardComponent,
-    TimelineComponent
+    TimelineComponent,
+    SectionComponent
   ],
   providers: [
     BrickService,

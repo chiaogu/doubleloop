@@ -47,6 +47,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   recorder: Recorder = new Recorder();
 
   sections: any[][] = [];
+  listRecycled = []
 
   buffers = {};
 

@@ -1,6 +1,9 @@
 <button (click)="toggleRecord()" [style.color]="recorder.recording ? 'red':'black'">Record</button>
 <button (click)="play()">Play</button>
 
-<div *ngFor="let section of sections">
-  <span style="margin: 8px" *ngFor="let note of section">{{note.id}}</span>
+<div class="timeline" dnd-sortable-container [sortableData]="sections" [dropZones]="['delete-dropZone']">
+  <app-section *ngFor="let section of sections; let i = index" dnd-sortable [sortableIndex]="i" [section]="section"></app-section>
+</div>
+<div class="recycle-bin" dnd-sortable-container [dropZones]="['delete-dropZone']" [sortableData]="listRecycled">
+    Recycle bin: Drag into me to delete it<br/>
 </div>
