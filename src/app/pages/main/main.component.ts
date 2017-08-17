@@ -19,12 +19,9 @@ export class MainComponent implements OnInit {
 
   bricks$: Observable<any>;
 
-  items$: FirebaseListObservable<any[]>;
-
   constructor(
     private config: ConfigService,
-    private brick: BrickService,
-    private db: DatabaseService
+    private brick: BrickService
   ) { }
 
   ngOnInit() {
@@ -49,12 +46,6 @@ export class MainComponent implements OnInit {
         }
         return config.bricks;
       });
-
-    this.items$ = this.db.listSheet();
-
-    this.items$.subscribe(items => {
-      console.log('items', items);
-    });
   }
 
   onBrickPress(event: BrickPressEvent) {

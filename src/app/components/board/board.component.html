@@ -1,5 +1,5 @@
 <div class="root">
-  <div class="row" *ngFor="let i of Array(4).fill(0); let x = index">
-    <app-brick class="brick" *ngFor="let i of Array(4).fill(0); let y = index" [brick]="getBrick(x,y)" (brickPress)="onBrickPress($event)"></app-brick>
+  <div class="row" *ngFor="let x of [0, 1, 2, 3]">
+    <app-brick class="brick" *ngFor="let y of [0, 1, 2, 3]" [brick]="getBrick(x,y)" (brickPress)="onBrickPress($event)"></app-brick>
   </div>
 </div>

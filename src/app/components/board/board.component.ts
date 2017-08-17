@@ -7,7 +7,6 @@ import { BrickPressEvent } from "../brick/brick.component";
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
-  Array = Array;
   @Input() bricks: any = {};
 
   @Output() brickPress: EventEmitter<BrickPressEvent> = new EventEmitter();

@@ -32,11 +32,17 @@ import { SectionComponent } from './components/section/section.component';
 import { environment } from "../environments/environment";
 import { DatabaseService } from "./services/database.service";
 import { AngularFireDatabaseModule } from "angularfire2/database";
+import { ExploreComponent } from './pages/explore/explore.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: MainComponent
+  },
+  {
+    path: 'explore',
+    component: ExploreComponent
   }
 ];
 
@@ -56,7 +62,9 @@ export const routes: Routes = [
     MainComponent,
     BoardComponent,
     TimelineComponent,
-    SectionComponent
+    SectionComponent,
+    ExploreComponent,
+    NavigationComponent
   ],
   providers: [
     BrickService,

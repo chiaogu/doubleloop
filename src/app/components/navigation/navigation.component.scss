@@ -1,0 +1,29 @@
+:host {
+    width: 100%;
+    position: absolute;
+    height: 56px;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab {
+    width: 169px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:focus {
+        outline: none;
+    }
+    &.active {
+    }
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}

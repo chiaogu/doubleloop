@@ -1,8 +1,2 @@
 <app-board [bricks]="bricks$|async" (brickPress)="onBrickPress($event)"></app-board>
 <app-timeline></app-timeline>
-
-<ul>
-  <li class="text" *ngFor="let item of items$ | async">
-    {{item|json}}
-  </li>
-</ul>
