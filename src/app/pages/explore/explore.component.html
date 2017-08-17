@@ -1,6 +1,6 @@
 <div class="root">
   <div class="list">
-    <app-sheet *ngFor="let sheet of sheets$ | async" [sheet]="sheet">
+    <app-sheet *ngFor="let sheet of sheets$ | async" [sheet]="sheet" [routerLink]="['/explore']" [queryParams]="{ id: sheet.$key }">
     </app-sheet>
   </div>
 </div>

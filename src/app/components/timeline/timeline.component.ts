@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { BrickService } from "../../services/brick.service";
 import { AudioContext } from 'angular-audio-context';
@@ -6,6 +6,7 @@ import { Subject } from "rxjs/Subject";
 import { DatabaseService } from "../../services/database.service";
 import { MdDialog } from '@angular/material';
 import { SaveSheetDialogComponent } from "../save-sheet-dialog/save-sheet-dialog.component";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 class Recorder {
   recording: boolean = false;
@@ -45,7 +46,9 @@ class Recorder {
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss']
 })
-export class TimelineComponent implements OnInit, OnDestroy {
+export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() readOnly = false;
+  @Input() sheet;
 
   recorder: Recorder = new Recorder();
 
@@ -94,6 +97,12 @@ export class TimelineComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
+  ngOnChanges(changes) {
+    if (changes.sheet !== undefined) {
+      this.onSheetChange();
+    }
+  }
+
   ngOnDestroy() {
     if (this.playSub) this.playSub.unsubscribe();
   }
@@ -126,6 +135,14 @@ export class TimelineComponent implements OnInit, OnDestroy {
     });
   }
 
+  buffer(id) {
+    if (this.buffers[id] === undefined) {
+      this.brickSetvice.getBuffer(id).subscribe(buffer => {
+        this.buffers[id] = buffer;
+      });
+    }
+  }
+
   onRecordFinish(events) {
     let offset = events[0].time.getTime();
     for (let event of events) {
@@ -134,10 +151,21 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.sections.push(events);
 
     for (let event of events) {
-      if (this.buffers[event.id] === undefined) {
-        this.brickSetvice.getBuffer(event.id).subscribe(buffer => {
-          this.buffers[event.id] = buffer;
-        });
+      this.buffer(event.id);
+    }
+  }
+
+  onSheetChange() {
+    if (this.sheet === undefined || this.sheet.data === undefined) {
+      return;
+    }
+
+    let data = this.sheet.data;
+    this.sections = data;
+
+    for (let section of data) {
+      for (let note of section) {
+        this.buffer(note.id);
       }
     }
   }

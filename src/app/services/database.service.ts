@@ -8,6 +8,10 @@ export class DatabaseService {
     private db: AngularFireDatabase
   ) {}
 
+  getSheet(id: string): Observable<any> {
+    return this.db.object(`/sheets/${id}`);
+  }
+
   listSheet():Observable<any[]> {
     return this.db.list('/sheets').map(sheets => sheets.reverse());
   }

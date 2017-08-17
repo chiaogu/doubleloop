@@ -22,6 +22,8 @@ import { SectionComponent } from './components/section/section.component';
 import { ExploreComponent } from './pages/explore/explore.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { SaveSheetDialogComponent } from './components/save-sheet-dialog/save-sheet-dialog.component';
+import { SheetComponent } from './components/sheet/sheet.component';
+import { SheetDialogComponent } from './components/sheet-dialog/sheet-dialog.component';
 
 import { BrickService } from './services/brick.service';
 import { ConfigService } from './services/config.service';
@@ -41,7 +43,6 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
-import { SheetComponent } from './components/sheet/sheet.component';
 
 export const routes: Routes = [
   {
@@ -80,9 +81,11 @@ export const routes: Routes = [
     ExploreComponent,
     NavigationComponent,
     SaveSheetDialogComponent,
-    SheetComponent
+    SheetComponent,
+    SheetDialogComponent
   ],
   entryComponents: [
+    SheetDialogComponent,
     SaveSheetDialogComponent
   ],
   providers: [

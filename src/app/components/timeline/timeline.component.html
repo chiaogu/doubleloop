@@ -1,10 +1,14 @@
-<button (click)="toggleRecord()" [style.color]="recorder.recording ? 'red':'black'">Record</button>
+<button *ngIf="!readOnly" (click)="toggleRecord()" [style.color]="recorder.recording ? 'red':'black'">Record</button>
 <button (click)="play()">Play</button>
-<button (click)="save()">Save</button>
+<button *ngIf="!readOnly" (click)="save()">Save</button>
 
-<div class="timeline" dnd-sortable-container [sortableData]="sections" [dropZones]="['delete-dropZone']">
+<div *ngIf="!readOnly" class="timeline" dnd-sortable-container [sortableData]="sections" [dropZones]="['delete-dropZone']">
   <app-section *ngFor="let section of sections; let i = index" dnd-sortable [sortableIndex]="i" [section]="section"></app-section>
 </div>
-<div class="recycle-bin" dnd-sortable-container [dropZones]="['delete-dropZone']" [sortableData]="listRecycled">
+<div *ngIf="readOnly" class="timeline">
+  <app-section *ngFor="let section of sections; let i = index" [section]="section"></app-section>
+</div>
+
+<div *ngIf="!readOnly" class="recycle-bin" dnd-sortable-container [dropZones]="['delete-dropZone']" [sortableData]="listRecycled">
     Recycle bin: Drag into me to delete it<br/>
 </div>
