@@ -8,8 +8,6 @@ import { BrickPressEvent } from "../brick/brick.component";
 })
 export class BoardComponent implements OnInit {
   Array = Array;
-  @Input() row: number = 0;
-  @Input() column: number = 0;
   @Input() bricks: any = {};
 
   @Output() brickPress: EventEmitter<BrickPressEvent> = new EventEmitter();

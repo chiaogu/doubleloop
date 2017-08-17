@@ -1,4 +1,4 @@
-<app-board [row]="(config$|async)?.row" [column]="(config$|async)?.column" [bricks]="bricks$|async" (brickPress)="onBrickPress($event)"></app-board>
+<app-board [bricks]="bricks$|async" (brickPress)="onBrickPress($event)"></app-board>
 <app-timeline></app-timeline>
 
 <ul>
