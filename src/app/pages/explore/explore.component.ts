@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseListObservable } from "angularfire2/database";
 import { DatabaseService } from "../../services/database.service";
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: 'app-explore',
@@ -8,7 +9,7 @@ import { DatabaseService } from "../../services/database.service";
   styleUrls: ['./explore.component.scss']
 })
 export class ExploreComponent implements OnInit {
-  sheets$: FirebaseListObservable<any[]>;
+  sheets$: Observable<any[]>;
   
   constructor(
     private db: DatabaseService

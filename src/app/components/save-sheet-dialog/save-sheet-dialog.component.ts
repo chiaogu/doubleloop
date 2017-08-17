@@ -26,7 +26,8 @@ export class SaveSheetDialogComponent implements OnInit {
     this.saving = true;
     this.db.saveSheet({
       data: this.data.sections,
-      name: this.name
+      name: this.name,
+      time: new Date()
     })
       .then(_ => {
         this.saving = false;

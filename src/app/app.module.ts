@@ -41,6 +41,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
+import { SheetComponent } from './components/sheet/sheet.component';
 
 export const routes: Routes = [
   {
@@ -78,7 +79,8 @@ export const routes: Routes = [
     SectionComponent,
     ExploreComponent,
     NavigationComponent,
-    SaveSheetDialogComponent
+    SaveSheetDialogComponent,
+    SheetComponent
   ],
   entryComponents: [
     SaveSheetDialogComponent

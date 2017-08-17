@@ -1,5 +1,6 @@
-<ul>
-  <li class="text" *ngFor="let sheet of sheets$ | async">
-    {{sheet|json}}
-  </li>
-</ul>
+<div class="root">
+  <div class="list">
+    <app-sheet *ngFor="let sheet of sheets$ | async" [sheet]="sheet">
+    </app-sheet>
+  </div>
+</div>
