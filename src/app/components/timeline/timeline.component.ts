@@ -4,6 +4,8 @@ import { BrickService } from "../../services/brick.service";
 import { AudioContext } from 'angular-audio-context';
 import { Subject } from "rxjs/Subject";
 import { DatabaseService } from "../../services/database.service";
+import { MdDialog } from '@angular/material';
+import { SaveSheetDialogComponent } from "../save-sheet-dialog/save-sheet-dialog.component";
 
 class Recorder {
   recording: boolean = false;
@@ -59,7 +61,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   constructor(
     private brickSetvice: BrickService,
     private audio: AudioContext,
-    private db: DatabaseService
+    private dialog: MdDialog
   ) { }
 
   ngOnInit() {
@@ -93,7 +95,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if(this.playSub) this.playSub.unsubscribe();
+    if (this.playSub) this.playSub.unsubscribe();
   }
 
   toggleRecord() {
@@ -106,14 +108,15 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   save() {
     let sections = [];
-    for(let section of this.sections){
+    for (let section of this.sections) {
       let notes = [];
-      for(let { time, id } of section){
+      for (let { time, id } of section) {
         notes.push({ time, id });
       }
       sections.push(notes);
     }
-    this.db.saveSheet(sections);
+
+    this.dialog.open(SaveSheetDialogComponent, { data: { sections } });
   }
 
   input(event) {
@@ -125,7 +128,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   onRecordFinish(events) {
     let offset = events[0].time.getTime();
-    for(let event of events){
+    for (let event of events) {
       event.time = event.time.getTime() - offset;
     }
     this.sections.push(events);

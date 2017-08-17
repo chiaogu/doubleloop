@@ -1,0 +1,13 @@
+<h2 md-dialog-title>Save your sheet music</h2>
+
+<md-dialog-content>
+  <md-input-container>
+    <input [disabled]="saving" mdInput placeholder="Name" [(ngModel)]="name">
+  </md-input-container>
+</md-dialog-content>
+
+<md-dialog-actions>
+  <md-spinner *ngIf="saving"></md-spinner>
+  <button [disabled]="saving" md-button md-dialog-close>Cancel</button>
+  <button [disabled]="saving" md-button (click)="save()">Save</button>
+</md-dialog-actions>

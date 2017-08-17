@@ -11,7 +11,7 @@ export class DatabaseService {
     return this.db.list('/sheets');
   }
 
-  saveSheet(sheet: any, id?: string){
+  saveSheet(sheet: any, id?: string): any{
     if(id !== undefined){
       return this.listSheet().set(id, sheet);
     }else{

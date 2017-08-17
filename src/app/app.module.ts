@@ -5,15 +5,29 @@ import { HttpModule } from '@angular/http';
 import { AudioContextModule } from 'angular-audio-context';
 import { DndModule } from 'ng2-dnd';
 import { AngularFireModule } from 'angularfire2';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireDatabaseModule } from "angularfire2/database";
+import { MdDialogModule } from '@angular/material';
+import { MdButtonModule } from '@angular/material';
+import { MdInputModule } from '@angular/material';
+import {MdProgressSpinnerModule} from '@angular/material';
+import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { MainComponent } from "./pages/main/main.component";
 import { BrickComponent } from "./components/brick/brick.component";
 import { BoardComponent } from './components/board/board.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
+import { SectionComponent } from './components/section/section.component';
+import { ExploreComponent } from './pages/explore/explore.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { SaveSheetDialogComponent } from './components/save-sheet-dialog/save-sheet-dialog.component';
 
 import { BrickService } from './services/brick.service';
 import { ConfigService } from './services/config.service';
+import { DatabaseService } from "./services/database.service";
 
+import { environment } from "../environments/environment";
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/empty';
@@ -27,13 +41,6 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
-import { TimelineComponent } from './components/timeline/timeline.component';
-import { SectionComponent } from './components/section/section.component';
-import { environment } from "../environments/environment";
-import { DatabaseService } from "./services/database.service";
-import { AngularFireDatabaseModule } from "angularfire2/database";
-import { ExploreComponent } from './pages/explore/explore.component';
-import { NavigationComponent } from './components/navigation/navigation.component';
 
 export const routes: Routes = [
   {
@@ -48,10 +55,16 @@ export const routes: Routes = [
 
 @NgModule({
   imports: [
+    FormsModule,
     HttpModule,
     BrowserModule,
+    MdInputModule,
+    MdButtonModule,
+    MdDialogModule,
     AudioContextModule,
     DndModule.forRoot(),
+    MdProgressSpinnerModule,
+    BrowserAnimationsModule,
     AngularFireDatabaseModule,
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(environment.firebase)
@@ -64,7 +77,11 @@ export const routes: Routes = [
     TimelineComponent,
     SectionComponent,
     ExploreComponent,
-    NavigationComponent
+    NavigationComponent,
+    SaveSheetDialogComponent
+  ],
+  entryComponents: [
+    SaveSheetDialogComponent
   ],
   providers: [
     BrickService,
