@@ -6,6 +6,41 @@ import { BrickPressEvent } from "../../components/brick/brick.component";
 import { TimelineComponent } from "../../components/timeline/timeline.component";
 import { FirebaseListObservable } from "angularfire2/database";
 import { DatabaseService } from "../../services/database.service";
+import { MdDialog } from '@angular/material';
+import { SaveSheetDialogComponent } from "../../components/save-sheet-dialog/save-sheet-dialog.component";
+
+class Recorder {
+  recording: boolean = false;
+  events: any[] = [];
+
+  finish: (events: any[]) => void;
+
+  toggle() {
+    this.recording = !this.recording;
+    if (!this.recording) {
+      this.events.push({
+        time: new Date(),
+        id: 'END'
+      });
+      let track = this.events.splice(0);
+
+      if (this.finish !== undefined) {
+        this.finish(track);
+      }
+    } else {
+      this.events.push({
+        time: new Date(),
+        id: 'START'
+      });
+    }
+  }
+
+  input(event) {
+    if (this.recording) {
+      this.events.push(event);
+    }
+  }
+}
 
 @Component({
   selector: 'app-main',
@@ -19,9 +54,16 @@ export class MainComponent implements OnInit {
 
   bricks$: Observable<any>;
 
+  recorder: Recorder = new Recorder();
+
+  sheet = {
+    data: []
+  };
+
   constructor(
     private config: ConfigService,
-    private brick: BrickService
+    private brick: BrickService,
+    private dialog: MdDialog
   ) { }
 
   ngOnInit() {
@@ -46,12 +88,48 @@ export class MainComponent implements OnInit {
         }
         return config.bricks;
       });
+
+
+    this.recorder.finish = event => {
+      this.onRecordFinish(event);
+    };
+  }
+
+  toggleRecord() {
+    this.recorder.toggle();
+  }
+
+  save() {
+    let sections = [];
+    for (let section of this.sheet.data) {
+      let notes = [];
+      for (let { time, id } of section) {
+        notes.push({ time, id });
+      }
+      sections.push(notes);
+    }
+
+    this.dialog.open(SaveSheetDialogComponent, { data: { sections } });
   }
 
   onBrickPress(event: BrickPressEvent) {
     if (this.timeline === undefined) {
       return;
     }
-    this.timeline.input(event);
+
+    this.recorder.input({
+      time: event.time,
+      id: event.brick.id
+    });
+  }
+
+  onRecordFinish(events) {
+    let offset = events[0].time.getTime();
+    for (let event of events) {
+      event.time = event.time.getTime() - offset;
+    }
+    let data = this.sheet.data.slice(0);
+    data.push(events);
+    this.sheet = { data };
   }
 }

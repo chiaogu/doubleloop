@@ -1,2 +1,4 @@
 <app-board [bricks]="bricks$|async" (brickPress)="onBrickPress($event)"></app-board>
-<app-timeline></app-timeline>
+<button (click)="toggleRecord()" [style.color]="recorder.recording ? 'red':'black'">Record</button>
+<button (click)="save()">Save</button>
+<app-timeline [sheet]="sheet"></app-timeline>

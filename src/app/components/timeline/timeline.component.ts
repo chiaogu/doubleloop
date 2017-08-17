@@ -4,42 +4,8 @@ import { BrickService } from "../../services/brick.service";
 import { AudioContext } from 'angular-audio-context';
 import { Subject } from "rxjs/Subject";
 import { DatabaseService } from "../../services/database.service";
-import { MdDialog } from '@angular/material';
-import { SaveSheetDialogComponent } from "../save-sheet-dialog/save-sheet-dialog.component";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
-class Recorder {
-  recording: boolean = false;
-  events: any[] = [];
-
-  finish: (events: any[]) => void;
-
-  toggle() {
-    this.recording = !this.recording;
-    if (!this.recording) {
-      this.events.push({
-        time: new Date(),
-        id: 'END'
-      });
-      let track = this.events.splice(0);
-
-      if (this.finish !== undefined) {
-        this.finish(track);
-      }
-    } else {
-      this.events.push({
-        time: new Date(),
-        id: 'START'
-      });
-    }
-  }
-
-  input(event) {
-    if (this.recording) {
-      this.events.push(event);
-    }
-  }
-}
 
 @Component({
   selector: 'app-timeline',
@@ -50,9 +16,6 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
   @Input() readOnly = false;
   @Input() sheet;
 
-  recorder: Recorder = new Recorder();
-
-  sections: any[][] = [];
   listRecycled = []
 
   buffers = {};
@@ -63,20 +26,17 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private brickSetvice: BrickService,
-    private audio: AudioContext,
-    private dialog: MdDialog
+    private audio: AudioContext
   ) { }
 
   ngOnInit() {
-    this.recorder.finish = event => {
-      this.onRecordFinish(event);
-    };
-
     this.playSub = this.play$
-      .switchMap(() => {
+      .filter(_ => this.sheet !== undefined && this.sheet.data !== undefined)
+      .map(_ => this.sheet.data)
+      .switchMap(sections => {
         let events = [];
-        for (let i = 0; i < this.sections.length; i++) {
-          events.push(...this.sections[i]);
+        for (let i = 0; i < sections.length; i++) {
+          events.push(...sections[i]);
         }
 
         let stream = Observable.of(0);
@@ -107,32 +67,8 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
     if (this.playSub) this.playSub.unsubscribe();
   }
 
-  toggleRecord() {
-    this.recorder.toggle();
-  }
-
   play() {
     this.play$.next();
-  }
-
-  save() {
-    let sections = [];
-    for (let section of this.sections) {
-      let notes = [];
-      for (let { time, id } of section) {
-        notes.push({ time, id });
-      }
-      sections.push(notes);
-    }
-
-    this.dialog.open(SaveSheetDialogComponent, { data: { sections } });
-  }
-
-  input(event) {
-    this.recorder.input({
-      time: event.time,
-      id: event.brick.id
-    });
   }
 
   buffer(id) {
@@ -143,26 +79,12 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  onRecordFinish(events) {
-    let offset = events[0].time.getTime();
-    for (let event of events) {
-      event.time = event.time.getTime() - offset;
-    }
-    this.sections.push(events);
-
-    for (let event of events) {
-      this.buffer(event.id);
-    }
-  }
-
   onSheetChange() {
     if (this.sheet === undefined || this.sheet.data === undefined) {
       return;
     }
 
     let data = this.sheet.data;
-    this.sections = data;
-
     for (let section of data) {
       for (let note of section) {
         this.buffer(note.id);
