@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output, HostListener } from '@angular/core';
 import { AudioContext } from 'angular-audio-context';
 import { Observable } from "rxjs/Observable";
 import { Http, ResponseContentType } from "@angular/http";
@@ -22,6 +22,8 @@ export class BrickComponent implements OnInit, OnChanges {
   buffer: AudioBuffer;
   bufferSource: IAudioBufferSourceNode;
 
+  pressed: boolean = false;
+
   constructor(
     private audio: AudioContext,
     private brickService: BrickService
@@ -41,14 +43,15 @@ export class BrickComponent implements OnInit, OnChanges {
     }
   }
 
-
-  click() {
+  @HostListener('mousedown', ['$event'])
+  onPress(event) {
     if (this.buffer === undefined) {
       console.log('loading');
       return;
     }
+    this.pressed = true;
 
-    if(this.bufferSource !== undefined){
+    if (this.bufferSource !== undefined) {
       this.bufferSource.stop();
     }
     this.bufferSource = this.audio.createBufferSource();
@@ -62,4 +65,9 @@ export class BrickComponent implements OnInit, OnChanges {
     });
   }
 
+  @HostListener('mouseup', ['$event'])
+  @HostListener('mousemove', ['$event'])
+  onRelease(event) {
+    this.pressed = false;
+  }
 }

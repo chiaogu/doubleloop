@@ -1,6 +1,6 @@
 <button (click)="play()">Play</button>
 
-<div *ngIf="!readOnly" class="timeline" dnd-sortable-container [sortableData]="sections" [dropZones]="['delete-dropZone']">
+<div *ngIf="!readOnly" class="timeline" dnd-sortable-container [sortableData]="sheet.data" [dropZones]="['delete-dropZone']">
   <app-section *ngFor="let section of sheet.data; let i = index" dnd-sortable [sortableIndex]="i" [section]="section"></app-section>
 </div>
 <div *ngIf="readOnly" class="timeline">

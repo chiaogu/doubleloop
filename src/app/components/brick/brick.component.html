@@ -1,2 +1,6 @@
-<div *ngIf="brick!==undefined" class="root" [style.background-color]="brick.color" (click)="click()">
+<div class="root">
+  <div class="brick" [class.pressed]="pressed" *ngIf="brick!==undefined">
+    <div class="indicator" [class.pressed]="pressed" [style.background-color]="brick.color">
+    </div>
+  </div>
 </div>

@@ -1,5 +1,6 @@
-.root {
-    width: 100vw;
-    height: calc(100vh - 56px);
-    overflow: auto;
+.main {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: #444;
 }

@@ -1,29 +1,40 @@
 :host {
-    width: 100%;
-    position: absolute;
-    height: 56px;
-    bottom: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  position: absolute;
+  height: 56px;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  @media screen and (min-width: 593px) {
+    left: 0;
+    width: 56px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 }
 
 .tab {
-    width: 169px;
+  width: 169px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  &.active {}
+
+  @media screen and (min-width: 593px) {
+    width: 56px;
     height: 56px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    &:focus {
-        outline: none;
-    }
-    &.active {
-    }
+  }
 }
 
 .icon {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
