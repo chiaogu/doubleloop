@@ -1,6 +1,18 @@
 <div class="root">
   <app-board [bricks]="bricks$|async" (brickPress)="onBrickPress($event)"></app-board>
-  <button (click)="toggleRecord()" [style.color]="recorder.recording ? 'red':'black'">Record</button>
-  <button (click)="save()">Save</button>
+  <div class="control-container">
+    <div class="control">
+      <div class="control-button" [class.active]="recorder.recording" (click)="toggleRecord()">
+        <img class="control-button-icon" src="assets/images/ic_recording.svg" />
+      </div>
+      <div class="control-button" (click)="play()">
+        <img class="control-button-icon" src="assets/images/ic_play.svg" />
+      </div>
+      <div class="spacer"></div>
+      <div class="control-button" (click)="save()">
+        <img class="control-button-icon" src="assets/images/ic_share.svg" />
+      </div>
+    </div>
+  </div>
   <app-timeline [sheet]="sheet"></app-timeline>
 </div>

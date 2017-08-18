@@ -1,8 +1,12 @@
-.timeline {
-    height: 100px;
+.timeline {    
+    height: 56px;
+    padding-bottom: 16px;
     width: 100%;
     display: flex;
     flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: auto;
+}
+
+app-section {
+    margin-left: 6px;
 }

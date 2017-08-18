@@ -98,6 +98,13 @@ export class MainComponent implements OnInit {
   toggleRecord() {
     this.recorder.toggle();
   }
+  
+  play() {
+    if(this.timeline === undefined){
+      return;
+    }
+    this.timeline.play();
+  }
 
   save() {
     let sections = [];
@@ -113,10 +120,6 @@ export class MainComponent implements OnInit {
   }
 
   onBrickPress(event: BrickPressEvent) {
-    if (this.timeline === undefined) {
-      return;
-    }
-
     this.recorder.input({
       time: event.time,
       id: event.brick.id
