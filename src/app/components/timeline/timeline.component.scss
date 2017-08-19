@@ -1,12 +1,44 @@
-.timeline {    
-    height: 56px;
-    padding-bottom: 16px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    overflow: auto;
+.root {
+  display: flex;
+}
+
+.timeline {
+  height: 72px;
+  padding-bottom: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
 }
 
 app-section {
-    margin-left: 6px;
+  margin-left: 4px;
+}
+
+.recycle-area {
+  display: flex;
+  width: 0;
+  height: 72px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #444;
+  margin: 4px;
+  user-select: none;
+  box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.19), inset 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: width 0.3s;
+  &.visible {
+    width: 72px;
+  }
+}
+
+.control-button-icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  &.visible {
+    opacity: 1;
+  }
 }

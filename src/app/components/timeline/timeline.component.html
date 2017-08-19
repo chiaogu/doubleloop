@@ -1,10 +1,9 @@
-<div *ngIf="!readOnly" class="timeline" dnd-sortable-container [sortableData]="sheet.data" [dropZones]="['delete-dropZone']">
-  <app-section *ngFor="let section of sheet.data; let i = index" dnd-sortable [sortableIndex]="i" [section]="section"></app-section>
-</div>
-<div *ngIf="readOnly" class="timeline">
-  <app-section *ngFor="let section of sheet.data; let i = index" [section]="section"></app-section>
-</div>
-
-<div *ngIf="!readOnly" class="recycle-bin" dnd-sortable-container [dropZones]="['delete-dropZone']" [sortableData]="listRecycled">
-    Recycle bin: Drag into me to delete it<br/>
+<div class="root">
+  <div class="recycle-area" [class.visible]="dragging" dnd-sortable-container [dropZones]="['delete-dropZone']" [sortableData]="listRecycled">
+    <img class="control-button-icon" [class.visible]="dragging" src="assets/images/ic_delete.svg" />
+  </div>
+  <div class="timeline" dnd-sortable-container [sortableData]="sheet.data" [dropZones]="['delete-dropZone']">
+    <app-section *ngFor="let section of sheet.data; let i = index" [dragEnabled]="!readOnly" (onDragStart)="onDragStart()" (onDragEnd)="onDragEnd()"
+      dnd-sortable [sortableIndex]="i" [section]="section"></app-section>
+  </div>
 </div>

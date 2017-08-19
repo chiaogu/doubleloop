@@ -1,6 +1,14 @@
 .main {
-  width: 100vw;
+  width: calc(100vw - 56px);
   height: 100vh;
   overflow: auto;
   background-color: #444;
+  margin-left: 56px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+
+  @media screen and (max-width: 536px) {
+    margin-left: 0;
+    width: 100vw;
+    height: calc(100vh - 56px);
+  }
 }

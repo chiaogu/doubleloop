@@ -16,9 +16,9 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
   @Input() readOnly = false;
   @Input() sheet;
 
-  listRecycled = []
-
   buffers = {};
+  listRecycled = [];
+  dragging = false;
 
   play$: Subject<void> = new Subject<void>();
 
@@ -90,5 +90,13 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
         this.buffer(note.id);
       }
     }
+  }
+
+  onDragStart() {
+    this.dragging = true;
+  }
+
+  onDragEnd() {
+    this.dragging = false;
   }
 }

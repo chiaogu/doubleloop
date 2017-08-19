@@ -98,9 +98,9 @@ export class MainComponent implements OnInit {
   toggleRecord() {
     this.recorder.toggle();
   }
-  
+
   play() {
-    if(this.timeline === undefined){
+    if (this.timeline === undefined) {
       return;
     }
     this.timeline.play();
