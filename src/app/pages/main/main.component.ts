@@ -67,7 +67,7 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.config$ = this.config.get().shareReplay();
+    this.config$ = this.config.get();
 
     this.bricks$ = this.config$
       .switchMap(config => {

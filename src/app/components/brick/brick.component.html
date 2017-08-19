@@ -1,6 +1,6 @@
 <div class="root">
-  <div class="brick" [class.pressed]="pressed" *ngIf="brick!==undefined">
-    <div class="indicator" [class.pressed]="pressed" [style.background-color]="brick.color">
+  <div class="brick" [class.pressed]="pressed" [class.disabled]="brick === undefined">
+    <div class="indicator" [class.pressed]="pressed" [style.background-color]="brick ? brick.color : '#333'">
     </div>
   </div>
 </div>

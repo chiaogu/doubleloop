@@ -87,6 +87,9 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
     let data = this.sheet.data;
     for (let section of data) {
       for (let note of section) {
+        if(note.id === 'START' || note.id === 'END'){
+          continue;
+        }
         this.buffer(note.id);
       }
     }

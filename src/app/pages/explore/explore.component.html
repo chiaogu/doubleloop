@@ -1,4 +1,5 @@
-<div class="root">
+<div class="root" [class.loading]="loading">
+  <md-spinner *ngIf="loading"></md-spinner>
   <div class="list">
     <app-sheet *ngFor="let sheet of sheets$ | async" [sheet]="sheet" [routerLink]="['/explore']" [queryParams]="{ id: sheet.$key }">
     </app-sheet>

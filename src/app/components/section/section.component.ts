@@ -16,6 +16,8 @@ export class SectionComponent implements OnInit, OnChanges {
 
   noteWidth = 1000 * RATIO;
 
+  brickMap = {};
+
   constructor(
     private brickService: BrickService
   ) { }
@@ -34,12 +36,12 @@ export class SectionComponent implements OnInit, OnChanges {
           }
 
           note.left = note.time * RATIO + 'px';
-
-          this.brickService.get(note.id).subscribe(brick => {
-            note.brick = brick;
-          });
         }
     }
+  }
+
+  getBrick(id): Observable<any>{
+    return this.brickService.get(id);
   }
 
 }

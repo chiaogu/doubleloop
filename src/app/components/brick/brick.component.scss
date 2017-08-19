@@ -28,12 +28,9 @@
     width: calc(100% - 3.2vw);
     height: calc(100% - 3.2vw);
   }
-  &.pressed {
+  &.pressed, &.disabled {
     top: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    .indicator {
-      // box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
-    }
   }
 }
 
@@ -44,9 +41,9 @@
   right: 8px;
   position: absolute;
   border-radius: 2px;
+  transition: background-color 1s ease-out;
   @media screen and (max-width: 480px) {
     top: 1.6vw;
     right: 1.6vw;
-  }
-  // box-shadow: inset 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
+  } // box-shadow: inset 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
 }

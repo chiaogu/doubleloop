@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, ResponseContentType } from "@angular/http";
 import { AudioContext } from 'angular-audio-context';
 import { Observable } from "rxjs/Observable";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 export interface Brick {
   id: string;
@@ -13,41 +14,35 @@ export interface Brick {
 @Injectable()
 export class BrickService {
 
-  brickCache;
+  deferBricks = new BehaviorSubject(undefined);
   bufferCache = {};
 
   constructor(
     private http: Http,
     private audio: AudioContext
-  ) { }
+  ) {
+    this.http.get('assets/bricks.json')
+      .subscribe(res => {
+        this.deferBricks.next(res.json());
+      });
+  }
 
   get(id: string[] | string): Observable<any> {
-    let stream;
-    if (this.brickCache === undefined) {
-      this.brickCache = {};
-      stream = this.http.get('assets/bricks.json')
-        .do(res => {
-          this.brickCache = res.json();
-        })
-        .catch(e => {
-          this.brickCache = undefined;
-          return undefined;
-        })
-    } else {
-      stream = Observable.of(0);
-    }
+    let stream = this.deferBricks
+      .filter(bricks => bricks !== undefined && bricks !== null)
+      .take(1);
 
     if (Array.isArray(id)) {
-      return stream.map(_ => {
+      return stream.map(bricks => {
         let enriched = id.reduce((map, id) => {
-          map[id] = this.brickCache[id];
+          map[id] = bricks[id];
           return map;
         }, {});
 
         return enriched
       });
     } else {
-      return stream.map(_ => this.brickCache[id]);
+      return stream.map(bricks => bricks[id]);
     }
   }
 
