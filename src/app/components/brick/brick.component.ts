@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnChanges, EventEmitter, Output, HostListener } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output, HostListener, OnDestroy, NgZone } from '@angular/core';
 import { AudioContext } from 'angular-audio-context';
 import { Observable } from "rxjs/Observable";
 import { Http, ResponseContentType } from "@angular/http";
 import { IAudioBufferSourceNode } from "standardized-audio-context/build/esm/interfaces";
 import { BrickService, Brick } from "../../services/brick.service";
+import { KeyboardService } from "../../services/keyboard.service";
 
 export interface BrickPressEvent {
   brick: Brick,
@@ -15,7 +16,7 @@ export interface BrickPressEvent {
   templateUrl: './brick.component.html',
   styleUrls: ['./brick.component.scss']
 })
-export class BrickComponent implements OnInit, OnChanges {
+export class BrickComponent implements OnInit, OnDestroy, OnChanges {
   @Input() brick: any;
   @Output() brickPress: EventEmitter<BrickPressEvent> = new EventEmitter();
 
@@ -24,9 +25,14 @@ export class BrickComponent implements OnInit, OnChanges {
 
   pressed: boolean = false;
 
+  keyupSub;
+  keydownSub;
+
   constructor(
     private audio: AudioContext,
-    private brickService: BrickService
+    private brickService: BrickService,
+    private keyboard: KeyboardService,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
@@ -39,8 +45,28 @@ export class BrickComponent implements OnInit, OnChanges {
         .switchMap(brick => this.brickService.getBuffer(brick.id))
         .subscribe(buffer => {
           this.buffer = buffer;
+          this.subscribeKeyEvent();
         });
     }
+  }
+
+  subscribeKeyEvent() {
+    this.keydownSub = this.keyboard.keydown$
+      .filter(event => event.code === this.brick.key)
+      .subscribe(e => {
+        this.onPress(undefined);
+      });
+
+    this.keyupSub = this.keyboard.keyup$
+      .filter(event => event.code === this.brick.key)
+      .subscribe(e => {
+        this.onRelease(undefined);
+      });
+  };
+
+  ngOnDestroy() {
+    if (this.keydownSub) this.keydownSub.unsubscribe();
+    if (this.keyupSub) this.keyupSub.unsubscribe();
   }
 
   @HostListener('mousedown', ['$event'])

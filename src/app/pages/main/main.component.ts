@@ -8,6 +8,7 @@ import { FirebaseListObservable } from "angularfire2/database";
 import { DatabaseService } from "../../services/database.service";
 import { MdDialog } from '@angular/material';
 import { SaveSheetDialogComponent } from "../../components/save-sheet-dialog/save-sheet-dialog.component";
+import { KeyboardService } from "../../services/keyboard.service";
 
 class Recorder {
   recording: boolean = false;
@@ -65,7 +66,8 @@ export class MainComponent implements OnInit {
   constructor(
     private config: ConfigService,
     private brick: BrickService,
-    private dialog: MdDialog
+    private dialog: MdDialog,
+    private keyboard: KeyboardService
   ) { }
 
   ngOnInit() {
@@ -84,17 +86,26 @@ export class MainComponent implements OnInit {
         );
       })
       .map(([config, bricks]) => {
+        let map = {};
         for (let coord of Object.keys(config.bricks)) {
           let id = config.bricks[coord];
-          config.bricks[coord] = bricks[id];
+          let brick = Object.assign({}, bricks[id]);
+          brick.key = config.keys[coord];
+          map[coord] = brick;
         }
-        return config.bricks;
+        return map;
       });
 
 
     this.recorder.finish = event => {
       this.onRecordFinish(event);
     };
+
+    this.keyboard.keyup$
+      .filter(e => e.code === 'Backquote')
+      .subscribe(e => {
+        this.toggleRecord();
+      });
   }
 
   toggleRecord() {
@@ -113,7 +124,7 @@ export class MainComponent implements OnInit {
   }
 
   save() {
-    if(this.sheet.data.length === 0){
+    if (this.sheet.data.length === 0) {
       return;
     }
     let sections = [];
@@ -146,9 +157,9 @@ export class MainComponent implements OnInit {
   }
 
   onTimelineStateChange(event) {
-    if(event === 'play'){
+    if (event === 'play') {
       this.playing = true;
-    }else{
+    } else {
       this.playing = false;
     }
   }

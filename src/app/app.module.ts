@@ -46,6 +46,7 @@ import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
 import { SaveSheetSuccessDialogComponent } from './components/save-sheet-success-dialog/save-sheet-success-dialog.component';
 import { FacebookService } from "./services/facebook.service";
+import { KeyboardService } from "./services/keyboard.service";
 
 export const routes: Routes = [
   {
@@ -97,7 +98,8 @@ export const routes: Routes = [
     BrickService,
     ConfigService,
     DatabaseService,
-    FacebookService
+    FacebookService,
+    KeyboardService,
   ],
   bootstrap: [AppComponent]
 })

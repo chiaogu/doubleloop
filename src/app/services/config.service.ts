@@ -8,6 +8,7 @@ export interface Config {
   row: number;
   column: number;
   bricks: any;
+  keys: any;
 }
 
 @Injectable()

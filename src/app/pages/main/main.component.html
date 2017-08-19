@@ -8,7 +8,7 @@
       <div class="control-button" [class.disabled]="sheet.data.length === 0" (click)="toggle()">
         <img class="control-button-icon" [src]="playing ? 'assets/images/ic_pause.svg':'assets/images/ic_play.svg'" />
       </div>
-      <div class="control-button" (click)="stop()">
+      <div class="control-button" [class.disabled]="sheet.data.length === 0" (click)="stop()">
         <img class="control-button-icon" src="assets/images/ic_stop.svg" />
       </div>
       <div class="spacer"></div>
