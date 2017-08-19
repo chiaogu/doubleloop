@@ -1,0 +1,116 @@
+{
+  "0001": {
+    "id": "0001",
+    "name": "acoustic-snare",
+    "color": "#f44336",
+    "url": "assets/sounds/acoustic-snare.mp3"
+  },
+  "0002": {
+    "id": "0002",
+    "name": "bass-drum-1",
+    "color": "#e91e63",
+    "url": "assets/sounds/bass-drum-1.mp3"
+  },
+  "0003": {
+    "id": "0003",
+    "name": "chinese-cymbal",
+    "color": "#9c27b0",
+    "url": "assets/sounds/chinese-cymbal.mp3"
+  },
+  "0004": {
+    "id": "0004",
+    "name": "closed-hihat",
+    "color": "#673ab7",
+    "url": "assets/sounds/closed-hihat.mp3"
+  },
+  "0005": {
+    "id": "0005",
+    "name": "crash-cymbal-1",
+    "color": "#3f51b5",
+    "url": "assets/sounds/crash-cymbal-1.mp3"
+  },
+  "0006": {
+    "id": "0006",
+    "name": "crash-cymbal-2",
+    "color": "#2196f3",
+    "url": "assets/sounds/crash-cymbal-2.mp3"
+  },
+  "0007": {
+    "id": "0007",
+    "name": "electric-snare",
+    "color": "#03a9f4",
+    "url": "assets/sounds/electric-snare.mp3"
+  },
+  "0008": {
+    "id": "0008",
+    "name": "hi-mid-tom",
+    "color": "#00bcd4",
+    "url": "assets/sounds/hi-mid-tom.mp3"
+  },
+  "0009": {
+    "id": "0009",
+    "name": "high-floor-tom",
+    "color": "#009688",
+    "url": "assets/sounds/high-floor-tom.mp3"
+  },
+  "0010": {
+    "id": "0010",
+    "name": "high-tom",
+    "color": "#4caf50",
+    "url": "assets/sounds/high-tom.mp3"
+  },
+  "0011": {
+    "id": "0011",
+    "name": "low-floor-tom",
+    "color": "#8bc34a",
+    "url": "assets/sounds/low-floor-tom.mp3"
+  },
+  "0012": {
+    "id": "0012",
+    "name": "low-mid-tom",
+    "color": "#cddc39",
+    "url": "assets/sounds/low-mid-tom.mp3"
+  },
+  "0013": {
+    "id": "0013",
+    "name": "low-tom",
+    "color": "#ffeb3b",
+    "url": "assets/sounds/low-tom.mp3"
+  },
+  "0014": {
+    "id": "0014",
+    "name": "open-hihat",
+    "color": "#ffc107",
+    "url": "assets/sounds/open-hihat.mp3"
+  },
+  "0015": {
+    "id": "0015",
+    "name": "pedal-hihat",
+    "color": "#ff9800",
+    "url": "assets/sounds/pedal-hihat.mp3"
+  },
+  "0016": {
+    "id": "0016",
+    "name": "ride-bell",
+    "color": "#ff5722",
+    "url": "assets/sounds/ride-bell.mp3"
+  },
+  "0017": {
+    "id": "0017",
+    "name": "ride-cymbal-1",
+    "color": "#795548",
+    "url": "assets/sounds/ride-cymbal-1.mp3"
+  },
+  "0018": {
+    "id": "0018",
+    "name": "side-stick",
+    "color": "#9e9e9e",
+    "url": "assets/sounds/side-stick.mp3"
+  },
+  "0019": {
+    "id": "0019",
+    "name": "splash-cymbal",
+    "color": "#607d8b",
+    "url": "assets/sounds/splash-cymbal.mp3"
+  }
+}
