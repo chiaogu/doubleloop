@@ -101,11 +101,11 @@ export class MainComponent implements OnInit {
     this.recorder.toggle();
   }
 
-  play() {
+  toggle() {
     if (this.timeline === undefined) {
       return;
     }
-    this.timeline.play();
+    this.timeline.toggle();
   }
 
   stop() {

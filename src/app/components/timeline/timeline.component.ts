@@ -132,7 +132,7 @@ export class TimelineComponent implements OnInit, OnChanges {
     }
   }
 
-  play() {
+  toggle() {
     let data = this.sheet.data;
     let notes = [];
     let offset = 0;

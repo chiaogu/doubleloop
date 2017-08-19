@@ -5,7 +5,7 @@
       <div class="control-button" [class.active]="recorder.recording" (click)="toggleRecord()">
         <img class="control-button-icon" src="assets/images/ic_recording.svg" />
       </div>
-      <div class="control-button" [class.disabled]="sheet.data.length === 0" (click)="play()">
+      <div class="control-button" [class.disabled]="sheet.data.length === 0" (click)="toggle()">
         <img class="control-button-icon" [src]="playing ? 'assets/images/ic_pause.svg':'assets/images/ic_play.svg'" />
       </div>
       <div class="control-button" (click)="stop()">

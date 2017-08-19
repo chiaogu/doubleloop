@@ -12,6 +12,7 @@ export class SheetDialogComponent implements OnInit {
   @ViewChild(TimelineComponent) timeline: TimelineComponent;
   moment = moment;
   sheet: any;
+  playing: boolean = false;
 
   constructor(
     @Inject(MD_DIALOG_DATA) private data: { sheet: any },
@@ -22,10 +23,22 @@ export class SheetDialogComponent implements OnInit {
   ngOnInit() {
   }
 
-  play(){
-    if(this.timeline === undefined) {
+  toggle() {
+    if (this.timeline === undefined) {
       return this.timeline;
     }
-    this.timeline.play();
+    this.timeline.toggle();
+  }
+
+  stop() {
+    this.timeline.stop();
+  }
+
+  onTimelineStateChange(event) {
+    if (event === 'play') {
+      this.playing = true;
+    } else {
+      this.playing = false;
+    }
   }
 }

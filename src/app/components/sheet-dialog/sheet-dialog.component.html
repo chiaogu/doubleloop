@@ -1,8 +1,13 @@
 <div class="root">
   <span class="title">{{sheet.name}}</span>
   <span class="time" *ngIf="sheet.time">{{moment(sheet.time).format('YYYY/MM/DD hh:mm')}}</span>
-  <div class="control-button" (click)="play()">
-    <img class="control-button-icon" src="assets/images/ic_play.svg" />
-  </div>
-  <app-timeline [sheet]="sheet" [readOnly]="true"></app-timeline>
+  <div class="control">
+      <div class="control-button" (click)="toggle()">
+        <img class="control-button-icon" [src]="playing ? 'assets/images/ic_pause.svg':'assets/images/ic_play.svg'" />
+      </div>
+      <div class="control-button" (click)="stop()">
+        <img class="control-button-icon" src="assets/images/ic_stop.svg" />
+      </div>
+    </div>
+  <app-timeline [sheet]="sheet" [readOnly]="true" (stateChange)="onTimelineStateChange($event)"></app-timeline>
 </div>
