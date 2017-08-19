@@ -5,11 +5,11 @@
       <div class="control-button" [class.active]="recorder.recording" (click)="toggleRecord()">
         <img class="control-button-icon" src="assets/images/ic_recording.svg" />
       </div>
-      <div class="control-button" (click)="play()">
+      <div class="control-button" [class.disabled]="sheet.data.length === 0" (click)="play()">
         <img class="control-button-icon" src="assets/images/ic_play.svg" />
       </div>
       <div class="spacer"></div>
-      <div class="control-button" (click)="save()">
+      <div class="control-button" [class.disabled]="sheet.data.length === 0" (click)="save()">
         <img class="control-button-icon" src="assets/images/ic_share.svg" />
       </div>
     </div>

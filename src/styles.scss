@@ -1,10 +1,12 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~@angular/material/theming';
+$app-primary: mat-palette($mat-grey);
+$app-accent : mat-palette($mat-grey);
+$app-warn : mat-palette($mat-grey);
+$app-theme: mat-dark-theme($app-primary, $app-accent, $app-warn);
+@include angular-material-theme($app-theme);
 
 body {
-    margin: 0;
-    background-color: #333;
-}
-
-.mat-dialog-container {
-    background-color: #444;
+  margin: 0;
+  background-color: #333;
 }

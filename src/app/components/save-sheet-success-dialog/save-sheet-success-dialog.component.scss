@@ -1,0 +1,13 @@
+md-dialog-actions {
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+a {
+  &:focus,
+  &active {
+    outline: none;
+    color: #fff;
+  }
+  color: #fff;
+}

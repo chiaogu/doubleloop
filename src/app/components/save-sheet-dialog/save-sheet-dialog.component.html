@@ -1,4 +1,4 @@
-<h2 md-dialog-title>Save your sheet music</h2>
+<h2 md-dialog-title>Publish your sheet music</h2>
 
 <md-dialog-content>
   <md-input-container>
@@ -9,5 +9,5 @@
 <md-dialog-actions>
   <md-spinner *ngIf="saving"></md-spinner>
   <button [disabled]="saving" md-button md-dialog-close>Cancel</button>
-  <button [disabled]="saving" md-button (click)="save()">Save</button>
+  <button [disabled]="saving || this.name.length === 0" md-button (click)="save()">Publish</button>
 </md-dialog-actions>

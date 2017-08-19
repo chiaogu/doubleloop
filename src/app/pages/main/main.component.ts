@@ -24,7 +24,7 @@ class Recorder {
       });
       let track = this.events.splice(0);
 
-      if (this.finish !== undefined) {
+      if (track.length > 2 && this.finish !== undefined) {
         this.finish(track);
       }
     } else {
@@ -107,6 +107,9 @@ export class MainComponent implements OnInit {
   }
 
   save() {
+    if(this.sheet.data.length === 0){
+      return;
+    }
     let sections = [];
     for (let section of this.sheet.data) {
       let notes = [];

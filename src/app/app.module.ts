@@ -43,6 +43,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
+import { SaveSheetSuccessDialogComponent } from './components/save-sheet-success-dialog/save-sheet-success-dialog.component';
 
 export const routes: Routes = [
   {
@@ -82,11 +83,13 @@ export const routes: Routes = [
     NavigationComponent,
     SaveSheetDialogComponent,
     SheetComponent,
-    SheetDialogComponent
+    SheetDialogComponent,
+    SaveSheetSuccessDialogComponent
   ],
   entryComponents: [
     SheetDialogComponent,
-    SaveSheetDialogComponent
+    SaveSheetDialogComponent,
+    SaveSheetSuccessDialogComponent
   ],
   providers: [
     BrickService,
