@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { BrickService } from "../../services/brick.service";
-
-const RATIO = 0.1;
+import { RATIO } from '../../const';
 
 @Component({
   selector: 'app-section',

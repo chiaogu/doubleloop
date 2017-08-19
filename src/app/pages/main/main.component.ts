@@ -60,6 +60,8 @@ export class MainComponent implements OnInit {
     data: []
   };
 
+  playing = false;
+
   constructor(
     private config: ConfigService,
     private brick: BrickService,
@@ -106,6 +108,10 @@ export class MainComponent implements OnInit {
     this.timeline.play();
   }
 
+  stop() {
+    this.timeline.stop();
+  }
+
   save() {
     if(this.sheet.data.length === 0){
       return;
@@ -137,5 +143,13 @@ export class MainComponent implements OnInit {
     let data = this.sheet.data.slice(0);
     data.push(events);
     this.sheet = { data };
+  }
+
+  onTimelineStateChange(event) {
+    if(event === 'play'){
+      this.playing = true;
+    }else{
+      this.playing = false;
+    }
   }
 }

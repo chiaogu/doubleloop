@@ -1,5 +1,6 @@
 .root {
   display: flex;
+  position: relative;
 }
 
 .timeline {
@@ -45,4 +46,12 @@ app-section {
   &.visible {
     opacity: 1;
   }
+}
+
+
+.cursor {
+  height: calc(100% - 16px);
+  width: 1px;
+  position: absolute;
+  background-color: #fff;
 }

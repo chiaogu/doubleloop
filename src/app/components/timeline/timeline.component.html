@@ -6,4 +6,7 @@
     <app-section *ngFor="let section of sheet.data; let i = index" [class.first]="i === 0"[dragEnabled]="!readOnly" (onDragStart)="onDragStart()" (onDragEnd)="onDragEnd()"
       dnd-sortable [sortableIndex]="i" [section]="section"></app-section>
   </div>
+  <div class="cursor" *ngIf="player.progress > 0" [style.left]="player.progress * RATIO + 'px'">
+  </div>
+  
 </div>

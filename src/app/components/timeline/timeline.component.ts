@@ -1,60 +1,129 @@
-import { Component, OnInit, OnDestroy, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { BrickService } from "../../services/brick.service";
 import { AudioContext } from 'angular-audio-context';
 import { Subject } from "rxjs/Subject";
 import { DatabaseService } from "../../services/database.service";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { RATIO } from '../../const';
 
+
+class AnimFramePlayer {
+  cursor: number = 0;
+  notes: any[] = [];
+  playing: boolean = false;
+
+  preTime: number;
+  progress: number = 0;
+
+  buffers: any;
+  audio: AudioContext;
+
+  onStateChange: (event) => void;
+
+  constructor(audio: AudioContext, buffers: any) {
+    this.audio = audio;
+    this.buffers = buffers;
+  }
+
+  setNotes(notes: any[]) {
+    this.notes = notes;
+  }
+
+  play() {
+    this.preTime = new Date().getTime();
+    this.playing = true;
+    this.tick();
+
+    this.output('play');
+  }
+
+  pause() {
+    this.playing = false;
+
+    this.output('pause');
+  }
+
+  stop() {
+    this.playing = false;
+    this.progress = 0;
+    this.cursor = 0;
+
+    this.output('stop');
+  }
+
+  toggle() {
+    this.playing = !this.playing;
+    if (this.playing) {
+      this.play();
+    } else {
+      this.pause();
+    }
+  }
+
+  output(event) {
+    if(this.onStateChange){
+      this.onStateChange(event);
+    }
+  }
+
+  tick() {
+    let now = new Date().getTime();
+    let duration = now - this.preTime;
+    this.progress += duration;
+    this.preTime = now;
+
+    let next = this.notes[this.cursor].time;
+    if (this.progress >= next) {
+      let buffer = this.buffers[this.notes[this.cursor].id];
+      if (buffer !== undefined) {
+        let bufferSource = this.audio.createBufferSource();
+        bufferSource.buffer = buffer;
+        bufferSource.connect(this.audio.destination);
+        bufferSource.start(0);
+      }
+
+      this.cursor++;
+    }
+
+    if (this.cursor >= this.notes.length) {
+      this.stop();
+    }
+
+    if (this.playing) {
+      requestAnimationFrame(this.tick.bind(this))
+    }
+  }
+}
 
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss']
 })
-export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
+export class TimelineComponent implements OnInit, OnChanges {
+  @Output() stateChange = new EventEmitter();
   @Input() readOnly = false;
   @Input() sheet;
+  RATIO = RATIO;
 
   buffers = {};
   listRecycled = [];
   dragging = false;
 
-  play$: Subject<void> = new Subject<void>();
-
-  playSub;
+  player: AnimFramePlayer;
 
   constructor(
     private brickSetvice: BrickService,
     private audio: AudioContext
-  ) { }
+  ) {
+    this.player = new AnimFramePlayer(audio, this.buffers);
+    this.player.onStateChange = event => {
+      this.stateChange.next(event);
+    }
+  }
 
   ngOnInit() {
-    this.playSub = this.play$
-      .filter(_ => this.sheet !== undefined && this.sheet.data !== undefined)
-      .map(_ => this.sheet.data)
-      .switchMap(sections => {
-        let events = [];
-        for (let i = 0; i < sections.length; i++) {
-          events.push(...sections[i]);
-        }
-
-        let stream = Observable.of(0);
-        for (let i = 1; i < events.length; i++) {
-          let duration = Math.max(0, events[i].time - events[i - 1].time);
-          stream = stream.delay(duration).do(_ => {
-            let buffer = this.buffers[events[i].id];
-            if (buffer !== undefined) {
-              let bufferSource = this.audio.createBufferSource();
-              bufferSource.buffer = buffer;
-              bufferSource.connect(this.audio.destination);
-              bufferSource.start(0);
-            }
-          });
-        }
-        return stream;
-      })
-      .subscribe();
   }
 
   ngOnChanges(changes) {
@@ -63,12 +132,27 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  ngOnDestroy() {
-    if (this.playSub) this.playSub.unsubscribe();
+  play() {
+    let data = this.sheet.data;
+    let notes = [];
+    let offset = 0;
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < data[i].length; j++) {
+        let note = Object.assign({}, data[i][j]);
+        note.time += offset;
+        notes.push(note);
+        if (j === data[i].length - 1) {
+          offset += note.time;
+        }
+      }
+    }
+
+    this.player.setNotes(notes);
+    this.player.toggle();
   }
 
-  play() {
-    this.play$.next();
+  stop() {
+    this.player.stop();
   }
 
   buffer(id) {
@@ -87,7 +171,7 @@ export class TimelineComponent implements OnInit, OnDestroy, OnChanges {
     let data = this.sheet.data;
     for (let section of data) {
       for (let note of section) {
-        if(note.id === 'START' || note.id === 'END'){
+        if (note.id === 'START' || note.id === 'END') {
           continue;
         }
         this.buffer(note.id);
