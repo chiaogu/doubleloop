@@ -6,20 +6,21 @@ import { Observable } from "rxjs/Observable";
 export class DatabaseService {
   constructor(
     private db: AngularFireDatabase
-  ) {}
+  ) { }
 
   getSheet(id: string): Observable<any> {
     return this.db.object(`/sheets/${id}`);
   }
 
-  listSheet():Observable<any[]> {
-    return this.db.list('/sheets').map(sheets => sheets.reverse());
+  listSheet(): Observable<any[]> {
+    return this.db.list('/sheets')
+      .map(sheets => sheets.reverse());
   }
 
-  saveSheet(sheet: any, id?: string): any{
-    if(id !== undefined){
+  saveSheet(sheet: any, id?: string): any {
+    if (id !== undefined) {
       return this.db.list('/sheets').set(id, sheet);
-    }else{
+    } else {
       return this.db.list('/sheets').push(sheet);
     }
   }

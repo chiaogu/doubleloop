@@ -2,4 +2,37 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin: 16px;
+}
+
+
+//536px 
+.list {
+  @media screen and (max-width: 416px) {
+    width: 192px;
+  }
+  @media screen and (min-width: 417px) and (max-width: 663px) {
+    width: 384px;
+  }
+  @media screen and (min-width: 664px) and (max-width: 855px) {
+    width: 576px;
+  }
+  @media screen and (min-width: 856px) and (max-width: 1047px) {
+    width: 768px;
+  }
+  @media screen and (min-width: 1048px) and (max-width: 1239px) {
+    width: 960px;
+  }
+  @media screen and (min-width: 1240px) and (max-width: 1431px) {
+    width: 1152px;
+  }
+  @media screen and (min-width: 1432px) and (max-width: 1623px) {
+    width: 1344px;
+  }
+  @media screen and (min-width: 1624px) and (max-width: 1815px) {
+    width: 1536px;
+  }
+  @media screen and (min-width: 1816px) {
+    width: 1728px;
+  }
 }

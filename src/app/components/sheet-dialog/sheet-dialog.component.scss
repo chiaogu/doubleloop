@@ -1,0 +1,47 @@
+.root {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+  color: #fff;
+  font-size: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.time {
+  color: #fff;
+  font-size: 14px;
+  font-weight: lighter;
+  margin-bottom: 16px;
+}
+
+app-timeline {
+    margin-top: 8px;
+}
+
+
+.control-button {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #555;
+    user-select: none;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    transition: all 0.1s ease-out;
+    margin: 8px 0;
+    &:active {
+      margin: 12px 0 4px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+  }
+  
+  .control-button-icon {
+    width: 24px;
+    height: 24px;
+  }

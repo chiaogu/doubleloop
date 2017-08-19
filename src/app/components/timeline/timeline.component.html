@@ -3,7 +3,7 @@
     <img class="control-button-icon" [class.visible]="dragging" src="assets/images/ic_delete.svg" />
   </div>
   <div class="timeline" dnd-sortable-container [sortableData]="sheet.data" [dropZones]="['delete-dropZone']">
-    <app-section *ngFor="let section of sheet.data; let i = index" [dragEnabled]="!readOnly" (onDragStart)="onDragStart()" (onDragEnd)="onDragEnd()"
+    <app-section *ngFor="let section of sheet.data; let i = index" [class.first]="i === 0"[dragEnabled]="!readOnly" (onDragStart)="onDragStart()" (onDragEnd)="onDragEnd()"
       dnd-sortable [sortableIndex]="i" [section]="section"></app-section>
   </div>
 </div>

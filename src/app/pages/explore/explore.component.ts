@@ -28,7 +28,7 @@ export class ExploreComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.queryParams
       .filter(params => params.id !== undefined)
       .switchMap(params => this.db.getSheet(params.id))
-      .switchMap(sheet => this.dialog.open(SheetDialogComponent, { data: { sheet } }).afterClosed())
+      .switchMap(sheet => this.dialog.open(SheetDialogComponent, {data: { sheet }}).afterClosed())
       .subscribe(_ => {
         this.router.navigate(['/explore']);
       });

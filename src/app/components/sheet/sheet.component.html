@@ -1,1 +1,4 @@
-{{sheet.name}}
+<div class="root">
+    <span class="title">{{sheet.name}}</span>
+    <span class="time" *ngIf="sheet.time">{{moment(sheet.time).format('YYYY/MM/DD hh:mm')}}</span>
+</div>
