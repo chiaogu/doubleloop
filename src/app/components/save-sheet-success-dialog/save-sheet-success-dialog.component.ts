@@ -14,10 +14,9 @@ export class SaveSheetSuccessDialogComponent implements OnInit {
     @Inject(MD_DIALOG_DATA) private data: any,
     private facebook: FacebookService
   ) {
-    const host = window.location.host;
-    const protocol = window.location.protocol;
+    const href = window.location.href;
 
-    this.url = `${protocol}//${host}/explore?id=${data}`;
+    this.url = `${href}explore?id=${data}`;
   }
 
   ngOnInit() {
