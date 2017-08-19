@@ -45,6 +45,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
 import 'hammerjs';
 import { SaveSheetSuccessDialogComponent } from './components/save-sheet-success-dialog/save-sheet-success-dialog.component';
+import { FacebookService } from "./services/facebook.service";
 
 export const routes: Routes = [
   {
@@ -95,7 +96,8 @@ export const routes: Routes = [
   providers: [
     BrickService,
     ConfigService,
-    DatabaseService
+    DatabaseService,
+    FacebookService
   ],
   bootstrap: [AppComponent]
 })

@@ -7,5 +7,6 @@ export const environment = {
     projectId: "double-loop",
     storageBucket: "double-loop.appspot.com",
     messagingSenderId: "428116968748"
-  }
+  },
+  favebookAppId: '921304178033918'
 };
