@@ -147,6 +147,8 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   }
 
   toggle() {
+    this.dragging = false;
+    
     let data = this.sheet.data;
     let notes = [];
     let offset = 0;
@@ -166,6 +168,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   }
 
   stop() {
+    this.dragging = false;
     this.player.stop();
   }
 

@@ -10,6 +10,8 @@
       "assets": [
         "assets",
         "favicon.png",
+        "appicon_ios.png",
+        "appicon_android.png",
         "manifest.json"
       ],
       "index": "index.html",

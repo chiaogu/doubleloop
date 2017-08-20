@@ -53,10 +53,12 @@ export class BrickService {
         .switchMap(brick => this.http.get(brick.url, {
           responseType: ResponseContentType.ArrayBuffer
         }))
-        .switchMap(res => new Promise<any>((resolve, reject) => {
-          this.audio.decodeAudioData(res.arrayBuffer(), resolve, reject);
+        .map(res => res.arrayBuffer())
+        .filter(buffer => buffer !== undefined)
+        .switchMap(buffer => new Promise<any>((resolve, reject) => {
+          this.audio.decodeAudioData(buffer, resolve, reject);
         }))
-        .catch(e => Observable.empty())
+        .catch(e => this.getBuffer(id))
         .do(buffer => {
           this.bufferCache[id] = buffer;
         });

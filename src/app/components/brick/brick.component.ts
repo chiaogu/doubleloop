@@ -54,13 +54,13 @@ export class BrickComponent implements OnInit, OnDestroy, OnChanges {
     this.keydownSub = this.keyboard.keydown$
       .filter(event => event.code === this.brick.key)
       .subscribe(e => {
-        this.onPress(undefined);
+        this.onPress();
       });
 
     this.keyupSub = this.keyboard.keyup$
       .filter(event => event.code === this.brick.key)
       .subscribe(e => {
-        this.onRelease(undefined);
+        this.onRelease();
       });
   };
 
@@ -69,8 +69,31 @@ export class BrickComponent implements OnInit, OnDestroy, OnChanges {
     if (this.keyupSub) this.keyupSub.unsubscribe();
   }
 
+  @HostListener('touchstart', ['$event'])
+  onTouchDown(event) {
+    event.preventDefault();
+    this.onPress();
+  }
+
+  @HostListener('touchcancel', ['$event'])
+  @HostListener('touchend', ['$event'])
+  @HostListener('touchmove', ['$event'])
+  onTouchUp(event) {
+    this.onRelease();
+  }
+
   @HostListener('mousedown', ['$event'])
-  onPress(event) {
+  onMouseDown(event) {
+    this.onPress();
+  }
+
+  @HostListener('mouseup', ['$event'])
+  @HostListener('mousemove', ['$event'])
+  onMouseUp(event){
+    this.onRelease();
+  }
+
+  onPress() {
     if (this.buffer === undefined) {
       console.log('loading');
       return;
@@ -91,9 +114,7 @@ export class BrickComponent implements OnInit, OnDestroy, OnChanges {
     });
   }
 
-  @HostListener('mouseup', ['$event'])
-  @HostListener('mousemove', ['$event'])
-  onRelease(event) {
+  onRelease() {
     this.pressed = false;
   }
 }

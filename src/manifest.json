@@ -1,6 +1,16 @@
 {
   "short_name": "Double Loop",
   "name": "Double Loop",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "appicon_android.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
   "start_url": "index.html",
-  "display": "standalone"
+  "fullscreen": true,
+  "background_color": "#333",
+  "theme_color": "#333"
 }
