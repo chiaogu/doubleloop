@@ -1,0 +1,5 @@
+<div class="root" [style.width]="width+'px'">
+  <div class="note" *ngFor="let note of section" [style.width]="noteWidth" [style.height]="noteWidth" [style.left]="note.left"
+    [style.background-color]="(getBrick(note.id)|async)?.color">
+  </div>
+</div>

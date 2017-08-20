@@ -1,0 +1,17 @@
+.root {
+    display: flex;
+    flex-direction: column;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.brick {
+    width: 25vw;
+    height: 25vw;
+    max-width: 120px;
+    max-height: 120px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
