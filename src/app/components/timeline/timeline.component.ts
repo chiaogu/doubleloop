@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, OnChanges, EventEmitter, Output, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable } from "rxjs/Observable";
 import { BrickService } from "../../services/brick.service";
 import { AudioContext } from 'angular-audio-context';
@@ -62,7 +62,7 @@ class AnimFramePlayer {
   }
 
   output(event) {
-    if(this.onStateChange){
+    if (this.onStateChange) {
       this.onStateChange(event);
     }
   }
@@ -101,7 +101,8 @@ class AnimFramePlayer {
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss']
 })
-export class TimelineComponent implements OnInit, OnChanges {
+export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+  @ViewChild('scroller') scroller;
   @Output() stateChange = new EventEmitter();
   @Input() readOnly = false;
   @Input() sheet;
@@ -112,6 +113,11 @@ export class TimelineComponent implements OnInit, OnChanges {
   dragging = false;
 
   player: AnimFramePlayer;
+
+  scrollLeft: number = 0;
+  scrollListener = event => {
+    this.scrollLeft = this.scroller.nativeElement.scrollLeft;
+  };
 
   constructor(
     private brickSetvice: BrickService,
@@ -124,6 +130,14 @@ export class TimelineComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.scroller.nativeElement.addEventListener('scroll', this.scrollListener);
+  }
+
+  ngOnDestroy() {
+    this.scroller.nativeElement.removeEventListener('scroll', this.scrollListener);
   }
 
   ngOnChanges(changes) {
@@ -142,7 +156,7 @@ export class TimelineComponent implements OnInit, OnChanges {
         note.time += offset;
         notes.push(note);
         if (j === data[i].length - 1) {
-          offset += note.time;
+          offset = note.time;
         }
       }
     }
