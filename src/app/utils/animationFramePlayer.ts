@@ -1,17 +1,16 @@
 import { AudioContext } from 'angular-audio-context';
+import { IPlayer } from "./interfaces";
 
-export class AnimFramePlayer {
-    cursor: number = 0;
-    notes: any[] = [];
-    playing: boolean = false;
-
-    preTime: number;
-    progress: number = 0;
-
-    buffers: any;
-    audio: AudioContext;
+export class AnimFramePlayer implements IPlayer{
+    private cursor: number = 0;
+    private notes: any[] = [];
+    private playing: boolean = false;
+    private preTime: number;
+    private buffers: any;
+    private audio: AudioContext;
 
     onStateChange: (event) => void;
+    progress: number = 0;
 
     constructor(audio: AudioContext, buffers: any) {
         this.audio = audio;
@@ -53,13 +52,13 @@ export class AnimFramePlayer {
         }
     }
 
-    output(event) {
+    private output(event) {
         if (this.onStateChange) {
             this.onStateChange(event);
         }
     }
 
-    tick() {
+    private tick() {
         let now = new Date().getTime();
         let duration = now - this.preTime;
         this.progress += duration;

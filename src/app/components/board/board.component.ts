@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener } from '@angular/core';
-import { BrickPressEvent } from "../brick/brick.component";
+import { BrickPressEvent } from "../../utils/interfaces";
 
 @Component({
   selector: 'app-board',

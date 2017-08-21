@@ -7,6 +7,7 @@ import { DatabaseService } from "../../services/database.service";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { RATIO } from '../../const';
 import { AnimFramePlayer } from "../../utils/animationFramePlayer";
+import { IPlayer } from "../../utils/interfaces";
 
 @Component({
   selector: 'app-timeline',
@@ -24,7 +25,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   listRecycled = [];
   dragging = false;
 
-  player: AnimFramePlayer;
+  player: IPlayer;
 
   scrollLeft: number = 0;
   scrollListener = event => {
@@ -50,6 +51,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
   ngOnDestroy() {
     this.scroller.nativeElement.removeEventListener('scroll', this.scrollListener);
+    this.player.stop();
   }
 
   ngOnChanges(changes) {
