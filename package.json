@@ -1,5 +1,5 @@
 {
-  "name": "double-loop",
+  "name": "doubleloop",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "precache": "sw-precache --config=sw-precache-config.js",
-    "build-ghpage": "ng build --prod --base-href \"https://chiaogu.github.io/double-loop/\" && npm run precache",
+    "build-ghpage": "ng build --prod --base-href \"https://chiaogu.github.io/doubleloop/\" && npm run precache",
     "deploy-ghpage": "npm run build-ghpage && ngh --no-silent"
   },
   "private": true,
