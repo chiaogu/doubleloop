@@ -43,7 +43,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/shareReplay';
-import 'hammerjs';
 import { SaveSheetSuccessDialogComponent } from './components/save-sheet-success-dialog/save-sheet-success-dialog.component';
 import { FacebookService } from "./services/facebook.service";
 import { KeyboardService } from "./services/keyboard.service";

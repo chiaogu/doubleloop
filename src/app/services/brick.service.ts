@@ -4,13 +4,6 @@ import { AudioContext } from 'angular-audio-context';
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
-export interface Brick {
-  id: string;
-  name: string;
-  color: string;
-  url: string;
-}
-
 @Injectable()
 export class BrickService {
 

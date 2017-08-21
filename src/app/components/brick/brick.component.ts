@@ -3,13 +3,9 @@ import { AudioContext } from 'angular-audio-context';
 import { Observable } from "rxjs/Observable";
 import { Http, ResponseContentType } from "@angular/http";
 import { IAudioBufferSourceNode } from "standardized-audio-context/build/esm/interfaces";
-import { BrickService, Brick } from "../../services/brick.service";
+import { BrickService } from "../../services/brick.service";
 import { KeyboardService } from "../../services/keyboard.service";
-
-export interface BrickPressEvent {
-  brick: Brick,
-  time: Date
-}
+import { BrickPressEvent } from "../../utils/interfaces";
 
 @Component({
   selector: 'app-brick',

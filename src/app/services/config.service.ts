@@ -3,13 +3,7 @@ import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import * as deepcopy from 'deepcopy';
-
-export interface Config {
-  row: number;
-  column: number;
-  bricks: any;
-  keys: any;
-}
+import { Config } from "../utils/interfaces";
 
 @Injectable()
 export class ConfigService {
